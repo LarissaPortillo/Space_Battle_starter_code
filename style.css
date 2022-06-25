@@ -23,12 +23,12 @@ flex-direction: column;
 justify-content: space-around;
 align-items: center;
 }
-.left{
+/* .left{
 
 }
 .right{
     
-}
+} */
 
 .nameBox{
     border: 1px solid black;

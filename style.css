@@ -1,6 +1,5 @@
 .bodyContainer{
     display: flex;
-   
     justify-content: space-between;
     height: 100vh;
     width: 100vw;
@@ -29,6 +28,25 @@ align-items: center;
 .right{
     
 } */
+.button{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+    font-size:.5em;
+    width: 20vw;
+}
+.start{
+    font-family: 'Share Tech Mono', monospace;
+    font-size:.5em;
+    height: 20vh;
+    width: 20vw;
+}
+ 
+button{
+    font-size:.6em;
+}
 
 .nameBox{
     border: 1px solid black;
@@ -60,10 +78,10 @@ align-items: center;
     justify-content: center;
     align-items: center;
     border: 1px solidblack;
-    width: 15vw;
-    height: 15vh;
+    width: 25vw;
+    height: 20vh;
     text-align: center;
-    font-size: 5px;
+    font-size: .1em;
     box-shadow: 0px 0px 20px 10px white;
     border-radius: 2%;
 
@@ -87,11 +105,11 @@ align-items: center;
     justify-content: center;
     align-items: center;
     border: 1px solidblack;
-    width: 15vw;
-    height: 15vh;
+    width: 25vw;
+    height: 20vh;
     text-align: center;
     font-family: 'Share Tech Mono', monospace;
-    font-size: 5px;
+    font-size: .1em;
     box-shadow: 0px 0px 20px 10px white;
-
 }
+

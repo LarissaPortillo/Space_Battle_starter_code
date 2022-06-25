@@ -26,6 +26,9 @@ for(i=1;i<=6;i++){
     alienFleet.push(new Ship(getRandomNumber(3,6,0),getRandomNumber(2,4,0),getRandomNumber(.6,.8,1)))
 }
 
+//when player clicks button the game starts
+let btn=document.querySelector('.start');
+btn.addEventListener('click',game);
 
 //array of possible messages player will see for different scenarios
 const missMessages=['Miss! Enemy dodged your attack.','Miss! Very close! But not close enough!','Way off! Complete Miss! Not even close to enemy ship!','Oops! Failed attack.']

@@ -4,6 +4,8 @@ const retreat=document.querySelector('button.retreat')
 const playerStats=document.querySelector('.playerStats')
 const alienStats=document.querySelector('.enemyStats')
 const attackbtn=document.querySelector('button.attack')
+const enemyHit=document.querySelector(".enemyImage")
+const playerHit=document.querySelector(".playerImage")
 // attackbtn.disabled=true
 // retreat.disabled =true
 
@@ -88,21 +90,28 @@ let start=(e)=>{
         setBoard(USSAssembly,alien)
         let proceed=true;
         retreat.disabled=false
+
+        enemyHit.style.animation='none'
+        playerHit.style.animation='none'
+
         while(proceed==true && alienFleet.length > 0 && USSAssembly.hull > 0 ){
-        //call attack method, player attacks
+        enemyHit.style.animation='none'
+        playerHit.style.animation='none'
+            //call attack method, player attacks
         attack(alien,USSAssembly) 
-        
+       
         //if alien receives damage: it either can be destroyed or can survive the damage 
         if(alien.hit==true){ 
             if(alien.hull <= 0 ){ //alien is destroyed
                 if(alienFleet.length-1==0){ //last alien in the array is destroyed so print message and decrement alienFleet array to end while loop
                     setBoard(USSAssembly,alien)
-                  
+
                     alert(`Entire enemy fleet destroyed. \nYour ${USSAssembly.firepower} damage brought the last enemy's hull to ${alien.hull}. \nYOU WIN!`)
-                    // playerStats.innerHTML=`Hull: ${USSAssembly.hull} <br> Firepower: ${USSAssembly.firepower} <br> Accuracy: ${USSAssembly.accuracy}`
-                    // alienStats.innerHTML=`Hull: ${alien.hull} <br> Firepower: ${alien.firepower} <br> Accuracy: ${alien.accuracy}`
-                  
-                    btnExt.textContent='Winner!'
+                    
+                    enemyHit.style.animation='blink 1s 2'
+                    playerHit.style.animation='win 1s 2'
+
+                    btnExt.textContent='Winner!'    
                     retreat.disabled=true
                     attackbtn.disabled=true
                     btn.disabled=false
@@ -110,33 +119,43 @@ let start=(e)=>{
                     alien=alienFleet[0]  
                 }
                 else{//alien is destroyed but there a still more aliens so print message and give player option to retreat(end loop) or attack(begin loop from beginning)
+                    
                     btnExt.textContent='Choose either to retreat or attack'
                     retreat.disabled=false
                     setBoard(USSAssembly,alien)
+                    
                     alert(`${alienDestroyed[getRandomNumber(0,(alienDestroyed.length-1),0)]} Your ${USSAssembly.firepower} damage brought the alien's hull to ${alien.hull}.  \nThere are ${alienFleet.length-1} ships remaining. `)
-                    // playerStats.innerHTML=`Hull: ${USSAssembly.hull} <br> Firepower: ${USSAssembly.firepower} <br> Accuracy: ${USSAssembly.accuracy}`
-                    // alienStats.innerHTML=`Hull: ${alien.hull} <br> Firepower: ${alien.firepower} <br> Accuracy: ${alien.accuracy}`
+                    enemyHit.style.animation='blink 1s 2'
+                    
                     alienFleet.shift()  
                     alien=alienFleet[0]  
                     proceed=false;
-                    
-                    
-                     
+    
                 }
             }
             else{ //alien ship survives despite damage so it'll attack
                 attack(USSAssembly,alien) 
                 if(USSAssembly.hit==true){ //player receives damage so they can either be destroyed or survive the damage
                     if(USSAssembly.hull <= 0 ){//player destroyed and loses game so while loop ends
+                        
                         attackbtn.ariaDisabled=true;
-                        alert(`${playerHitsMessages[getRandomNumber(0,(playerHitsMessages.length-1),0)]} You caused ${USSAssembly.firepower} damage. Alien survives with ${alien.hull} hulls remaining. \nEnemy strikes back.\n${playerDestroyed[getRandomNumber(0,(playerDestroyed.length-1),0)]} \nYOU LOSE. `)
+                        alert(`${playerHitsMessages[getRandomNumber(0,(playerHitsMessages.length-1),0)]} You caused ${USSAssembly.firepower} damage. Alien survives with ${alien.hull} hulls remaining.`)
+                        enemyHit.style.animation='blink 1s 2'
+                        alert(`Enemy strikes back.\n${playerDestroyed[getRandomNumber(0,(playerDestroyed.length-1),0)]} \nYOU LOSE. `)
+                        playerHit.style.animation='blink 1s 2'
+                        enemyHit.style.animation='win 1s 2'
                         setBoard(USSAssembly,alien)
                         attackbtn.disabled=true;
                         retreat.disabled=true;
                     }
                     else{ //player survives damage so loop will start back up
                         setBoard(USSAssembly,alien)
-                        alert(`${playerHitsMessages[getRandomNumber(0,(playerHitsMessages.length-1),0)]} You caused ${USSAssembly.firepower} damage. Alien survives with ${alien.hull} hulls remaining. \nEnemy strikes back. \n${alienHitsMessages[getRandomNumber(0,(alienHitsMessages.length-1),0)]} Alien caused ${alien.firepower} damage. You have ${USSAssembly.hull} hulls remaining.`)
+                        
+                        
+                        alert(`${playerHitsMessages[getRandomNumber(0,(playerHitsMessages.length-1),0)]} \nYou caused ${USSAssembly.firepower} damage. Alien survives with ${alien.hull} hulls remaining. `)
+                        enemyHit.style.animation='blink 1s 2'
+                        alert(`Enemy strikes back. \n${alienHitsMessages[getRandomNumber(0,(alienHitsMessages.length-1),0)]} Alien caused ${alien.firepower} damage. You have ${USSAssembly.hull} hulls remaining.`)
+                        playerHit.style.animation='blink 1s 2'
                         btnExt.innerHTML="Click on the attack button to attack the alien!"
                         attackbtn.disabled=false;
                         retreat.disabled=true;
@@ -144,7 +163,9 @@ let start=(e)=>{
                     }
                 }
                 else{ //player doesn't receive damage so it attacks and loop starts back up 
-                    alert(`${playerHitsMessages[getRandomNumber(0,(playerHitsMessages.length-1),0)]} You caused ${USSAssembly.firepower} damage. Alien survives with ${alien.hull} hulls remaining. \nEnemy strikes back.\n${alienMissesMessages[getRandomNumber(0,(alienMissesMessages.length-1),0)]}  You have ${USSAssembly.hull} hulls remaining.`) 
+                    alert(`${playerHitsMessages[getRandomNumber(0,(playerHitsMessages.length-1),0)]} \nYou caused ${USSAssembly.firepower} damage. Alien survives with ${alien.hull} hulls remaining. `)
+                    enemyHit.style.animation='blink 1s 2'
+                    alert(`Enemy strikes back.\n${alienMissesMessages[getRandomNumber(0,(alienMissesMessages.length-1),0)]}  You have ${USSAssembly.hull} hulls remaining.`) 
                     btnExt.innerHTML="Click on the attack button to attack the alien!"
 
                     attackbtn.disabled=false;
@@ -156,16 +177,26 @@ let start=(e)=>{
         else{//alien does not receive damage so it will attack
             attack(USSAssembly,alien)
             if(USSAssembly.hit==true){ //player receives damage can either be destroyed or survive
+                
                 if(USSAssembly.hull <= 0 ){//player  destroyed
+                    
                     setBoard(USSAssembly,alien)
-                    alert(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} Alien still has ${alien.hull} hulls. \nEnemy strikes back.\n${playerDestroyed[getRandomNumber(0,(playerDestroyed.length-1),0)]}. \nAlien's ${alien.firepower} damage brought your hull number to ${USSAssembly.hull}. YOU LOSE.  `)
+                    alert(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} Alien still has ${alien.hull} hulls.`)
+                    alert(`Enemy strikes back.\n${playerDestroyed[getRandomNumber(0,(playerDestroyed.length-1),0)]}. \nAlien's ${alien.firepower} damage brought your hull number to ${USSAssembly.hull}. YOU LOSE.  `)
+                    playerHit.style.animation='blink 1s 2'
+                    enemyHit.style.animation='win 1s 2'
+                    
                     btnExt.textContent='Loser'
                     retreat.disabled=true;
                     attackbtn.disabled=true;
                 }
                 else{ //player survives so loops start back up 
+                    
                     setBoard(USSAssembly,alien)
-                    alert(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} Alien still has ${alien.hull} hulls.\nEnemy strikes back.\n${alienHitsMessages[getRandomNumber(0,(alienHitsMessages.length-1),0)]} \nAlien caused ${alien.firepower} damage. You have ${USSAssembly.hull} hulls remaining.`)
+                    alert(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} Alien still has ${alien.hull} hulls.`)
+                    alert(`Enemy strikes back.\n${alienHitsMessages[getRandomNumber(0,(alienHitsMessages.length-1),0)]} \nAlien caused ${alien.firepower} damage. You have ${USSAssembly.hull} hulls remaining.`)
+                    playerHit.style.animation='blink 1s 2'
+                    
                     btnExt.innerHTML="Click on the attack button to attack the alien!"
                     attackbtn.disabled=false;
                     retreat.disabled=true;
@@ -175,7 +206,8 @@ let start=(e)=>{
             }
             else{//player doesn't receive damge so loops starts back up
                 setBoard(USSAssembly,alien)
-                alert(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} Alien still has ${alien.hull} hulls.  \nEnemy strikes back. \n${alienMissesMessages[getRandomNumber(0,(alienMissesMessages.length-1),0)]} You still have ${USSAssembly.hull} hulls.`)
+                alert(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} Alien still has ${alien.hull} hulls.`)
+                alert(`Enemy strikes back. \n${alienMissesMessages[getRandomNumber(0,(alienMissesMessages.length-1),0)]} You still have ${USSAssembly.hull} hulls.`)
                 btnExt.innerHTML="Click on the attack button to attack the alien!"
                 attackbtn.disabled=false;
                 retreat.disabled=true;

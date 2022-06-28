@@ -1,29 +1,32 @@
+let btn=document.querySelector('.start')
+
 //template for all ships
 class Ship{
     constructor(hull,firepower,accuracy){
         this.hull=hull
         this.firepower=firepower
         this.accuracy=accuracy
-        this.hit=false;
+        this.hit=false
     }
     //call this method when ship is attacked to decrease hull based on damage amount (damage=firepower number of opposing ship)
     attacked(damage){
         this.hull=this.hull-damage
-        this.hit=true;
+        this.hit=true
     }
 }
+
 
 //function that picks a random number with the amount of decimal places of your choosing from a given range, bounds are included
 let getRandomNumber=(min,max,decimal)=> (Math.random()*(max-min)+min).toFixed(decimal)
 
 
 //array of possible messages player will see for different scenarios
-const playerMisssesMessages=['Miss! Enemy dodged your attack.','Oh no! Alien ship survived!','Miss! Very close! But not close enough!','Way off! Complete Miss! Not even close to the enemy ship!','Oops! Failed attack.']
+const playerMisssesMessages=['You missed! Enemy dodged your attack.','Oh no! The alien ship survived!','You missed! So close! But not close enough!','Way off! Complete Miss! Not even close to the enemy ship!','Oops! Failed attack.']
 const playerHitsMessages=['BULLSEYE!',"Automatic HIT!","Success!"]
 const playerDestroyed=['Oh no! Your ship succummed to all the damages!','Unfortunately, you could not escape death.', 'Mayday-Mayday! Ship crashed!', 'Ship in complete shambles!', 'You attained too much damage.']
 
 const alienMissesMessages=['Enemy misses you by an inch!','Alien completely misses your ship!',"You managed to dodge the alien's attack!"]
-const alienHitsMessages=["You've been hit!","Dodge attempt failed.", "You flew right into enemy fire!", "Oh no!"]
+const alienHitsMessages=["You've been hit!","Your dodge attempt failed.", "You flew right into enemy fire!", "Oh no!"]
 const alienDestroyed=['Enemy suffered complete annihilation.','You downed the enemy.','CRITICAL HIT! Enemy destroyed.']
 
 
@@ -55,7 +58,7 @@ let game=(e)=>{
     //set first alien to be targetted
     let alien=alienFleet[0]
 
-    while(start=='a' && alienFleet > 0 && USSAssembly.hull > 0 ){
+    while(start=='a' && alienFleet.length > 0 && USSAssembly.hull > 0 ){
         //call attack method, player attacks
         attack(alien,USSAssembly) 
         
@@ -68,7 +71,7 @@ let game=(e)=>{
                     alien=alienFleet[0]  
                 }
                 else{//alien is destroyed but there a still more aliens so print message and give player option to retreat(end loop) or attack(begin loop from beginning)
-                    start=prompt(`${alienDestroyed[getRandomNumber(0,(alienDestroyed.length-1),0)]} Your ${USSAssembly.firepower} damage brought alien's hull to ${alien.hull}.  \nThere are ${alienFleet.length-1} ships remaining. \nType r to retreat or a to attack.`,'a or r')
+                    start=prompt(`${alienDestroyed[getRandomNumber(0,(alienDestroyed.length-1),0)]} Your ${USSAssembly.firepower} damage brought the alien's hull to ${alien.hull}.  \nThere are ${alienFleet.length-1} ships remaining. \nType r to retreat or a to attack.`,'a or r')
                     alienFleet.shift()  
                     alien=alienFleet[0]   
                 }
@@ -107,5 +110,4 @@ let game=(e)=>{
 }
 
 //when player clicks button the game starts
-const btn=document.querySelector('.start')
 btn.addEventListener('click',game)

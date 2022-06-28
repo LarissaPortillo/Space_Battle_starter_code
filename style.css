@@ -16,7 +16,7 @@
 
 .mainCharacterView{
 
-width: 50%;
+width: 30%;
 display: flex;
 flex-direction: column;
 justify-content: space-around;
@@ -31,8 +31,9 @@ align-items: center;
 .button{
     display:flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     text-align: center;
     font-size:.5em;
     width: 20vw;
@@ -43,10 +44,21 @@ align-items: center;
     height: 20vh;
     width: 20vw;
 }
- 
-button{
-    font-size:.6em;
+.retreat{
+    font-family: 'Share Tech Mono', monospace;
+    font-size:.5em;
+    height: 10vh;
+    width: 20vw;
 }
+.attack{
+    font-family: 'Share Tech Mono', monospace;
+    font-size:.5em;
+    height: 10vh;
+    width: 20vw;
+
+}
+
+
 
 .nameBox{
     border: 1px solid black;

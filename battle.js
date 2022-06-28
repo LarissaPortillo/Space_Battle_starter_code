@@ -1,4 +1,3 @@
-
 //template for all ships
 class Ship{
     constructor(hull,firepower,accuracy){
@@ -17,119 +16,96 @@ class Ship{
 //function that picks a random number with the amount of decimal places of your choosing from a given range, bounds are included
 let getRandomNumber=(min,max,decimal)=> (Math.random()*(max-min)+min).toFixed(decimal)
 
-//USS Assembly ship has prefixed numbers
-const USSAssembly = new Ship(20,5,.7)
-
-//Create array of 6 alien ships
-let alienFleet=[]
-for(i=1;i<=6;i++){
-    alienFleet.push(new Ship(getRandomNumber(3,6,0),getRandomNumber(2,4,0),getRandomNumber(.6,.8,1)))
-}
-
-//when player clicks button the game starts
-let btn=document.querySelector('.start');
-btn.addEventListener('click',game);
 
 //array of possible messages player will see for different scenarios
-const missMessages=['Miss! Enemy dodged your attack.','Miss! Very close! But not close enough!','Way off! Complete Miss! Not even close to enemy ship!','Oops! Failed attack.']
-const hitMessages=['BULLSEYE!',"Automatic HIT","Success!"]
-const loseMessages=['Oh no! Your ship succummed to all the damages!','Unfortunately, you could not escape death.', 'Mayday-Mayday! Ship crashed!', 'Ship in complete shambles!', 'You attained to much damage.']
+const playerMisssesMessages=['Miss! Enemy dodged your attack.','Oh no! Alien ship survived!','Miss! Very close! But not close enough!','Way off! Complete Miss! Not even close to the enemy ship!','Oops! Failed attack.']
+const playerHitsMessages=['BULLSEYE!',"Automatic HIT!","Success!"]
+const playerDestroyed=['Oh no! Your ship succummed to all the damages!','Unfortunately, you could not escape death.', 'Mayday-Mayday! Ship crashed!', 'Ship in complete shambles!', 'You attained too much damage.']
 
-const alienMissMessages=['Enemy misses you by an inch!','Complete miss from enemy ship!','You managed to dodge their attack!']
-const alienHitMessages=["You've been hit!","Dodge attempt failed.", "You flew right into enemy fire!", "Oh no!"]
+const alienMissesMessages=['Enemy misses you by an inch!','Alien completely misses your ship!',"You managed to dodge the alien's attack!"]
+const alienHitsMessages=["You've been hit!","Dodge attempt failed.", "You flew right into enemy fire!", "Oh no!"]
 const alienDestroyed=['Enemy suffered complete annihilation.','You downed the enemy.','CRITICAL HIT! Enemy destroyed.']
 
 
-//function to execute when you want player to attack 
-let USSAssemblyAttack = (alienShip)=>{
-    if(USSAssembly.accuracy > Math.random()){ 
-        //decrements alien's hull
-        alienShip.attacked()
-        //selects random message notifying player that they hit the alien ship 
-        console.log(`${hitMessages[getRandomNumber(0,(hitMessages.length-1),0)]} You caused ${USSAssembly.firepower} damage.`)
-        checkAlienHull(alienShip)
+//function to execute when you want attacker to attack it's victim
+let attack = (victim,attacker)=>{
+    if(attacker.accuracy > Math.random()){ 
+        //call on attacked method 
+        victim.attacked(attacker.firepower)
     }
-    else{
-        alienShip.hit=false
-        //selects random message when they do not hit the alien ship 
-        console.log(`${missMessages[getRandomNumber(0,(missMessages.length-1),0)]}`)
-        checkAlienHull(alienShip)
+    else{ 
+        //not attacked 
+        victim.hit=false
     }
 }
 
-//function to excute when you want the alien to attack 
-let alienAttack = (alienShip) =>{
-    if (alienShip.accuracy > Math.random()){
-        //decrements player's hull
-        USSAssembly.attacked()
-        //selects random message when alien hits ship
-        console.log(`${alienHitMessages[getRandomNumber(0,(alienHitMessages.length-1),0)]}. You received ${alienShip.firepower} damage.`)
-        checkHull()
-    }
-    else{
-        USSAssembly.hit=false
-        //selects tandom message when alien misses ship
-        console.log(`${alienMissMessages[getRandomNumber(0,(alienMissMessages.length-1),0)]} `)
-        checkHull()
-    }
-}
-
-
-//checks how many hulls the player has
-let checkHull=()=>{
-    if(USSAssembly.hull<=0){
-        console.log(`You have ${USSAssembly.hull} hulls`)
-        console.log(`${loseMessages[getRandomNumber(0,(loseMessages.length-1),0)]}.`)
-        console.log('YOU LOSE')
-    }
-    else if(USSAssembly.hull==1){
-        console.log(`You have ${USSAssembly.hull} hull remaining`)
-    }
-    else{
-        console.log(`You have ${USSAssembly.hull} hulls remaining`)
-    }
-}
-
-//checks how many hulls alien ship has
-let checkAlienHull=(alienShip)=>{
-    if(alienShip.hull<=0){
-        console.log(`${alienShip.hull} hulls`)
-        console.log(`${alienDestroyed[getRandomNumber(0,(alienDestroyed.length-1),0)]}`)
-        
-    }
-    else if(USSAssembly.hull==1){
-        console.log(`${alienShip.hull} hull remaining`)
-    }
-    else{
-        console.log(`${alienShip.hull} hulls remaining`)
-    }
-}
 
 //space game 
 let game=(e)=>{
-    //pick out our first enemy alien
-    let opponent=alienFleet[0]
-    //the game will continue while the fleet still exists
-    while(alienFleet.length!=0){
-        USSAssemblyAttack(opponent)
-        while(opponent.hit==true){
-            USSAssemblyAttack(opponent);
-        }
-        if(opponent.hull<=0){
-            //delete first index of alienFleet array
-            alienFleet.shift()
-            //rereat button
-            
-        }
-        alienAttack(opponent)
-        while(USSAssembly.hit==true){
-            alienAttack(opponent)
-        }
-        if(USSAssembly.hull<=0){
-            console.log(`${loseMessages[getRandomNumber(0,(loseMessages.length-1),0)]}`)
-        }
+    let start=prompt('Type a for attack');
+    //USS Assembly ship has prefixed numbers
+    const USSAssembly = new Ship(20,5,.7)
 
+    //Create array of 6 alien ships
+    let alienFleet=[]
+    for(i=1;i<=6;i++){
+        alienFleet.push(new Ship(getRandomNumber(3,6,0),getRandomNumber(2,4,0),getRandomNumber(.6,.8,1)))
     }
-    console.log('Entire enemy fleet destroyed. YOU WIN!')
+
+    //set first alien to be targetted
+    let alien=alienFleet[0]
+
+    while(start=='a' && alienFleet > 0 && USSAssembly.hull > 0 ){
+        //call attack method, player attacks
+        attack(alien,USSAssembly) 
+        
+        //if alien receives damage: it either can be destroyed or can survive the damage 
+        if(alien.hit==true){ 
+            if(alien.hull <= 0 ){ //alien is destroyed
+                if(alienFleet.length-1==0){ //last alien in the array is destroyed so print message and decrement alienFleet array to end while loop
+                    start=confirm(`Entire enemy fleet destroyed. \nYour ${USSAssembly.firepower} damage brought the last enemy's hull to ${alien.hull}. \nYOU WIN!`)
+                    alienFleet.shift()  
+                    alien=alienFleet[0]  
+                }
+                else{//alien is destroyed but there a still more aliens so print message and give player option to retreat(end loop) or attack(begin loop from beginning)
+                    start=prompt(`${alienDestroyed[getRandomNumber(0,(alienDestroyed.length-1),0)]} Your ${USSAssembly.firepower} damage brought alien's hull to ${alien.hull}.  \nThere are ${alienFleet.length-1} ships remaining. \nType r to retreat or a to attack.`,'a or r')
+                    alienFleet.shift()  
+                    alien=alienFleet[0]   
+                }
+            }
+            else{ //alien ship survives despite damage so it'll attack
+                attack(USSAssembly,alien) 
+                if(USSAssembly.hit==true){ //player receives damage so they can either be destroyed or survive the damage
+                    if(USSAssembly.hull <= 0 ){//player destroyed and loses game so while loop ends
+                        prompt(`${playerHitsMessages[getRandomNumber(0,(playerHitsMessages.length-1),0)]} You caused ${USSAssembly.firepower} damage. Alien survives with ${alien.hull} hulls remaining. \nEnemy strikes back.\n${playerDestroyed[getRandomNumber(0,(playerDestroyed.length-1),0)]} \nYOU LOSE. `)
+                    }
+                    else{ //player survives damage so loop will start back up
+                        prompt(`${playerHitsMessages[getRandomNumber(0,(playerHitsMessages.length-1),0)]} You caused ${USSAssembly.firepower} damage. Alien survives with ${alien.hull} hulls remaining. \nEnemy strikes back. \n${alienHitsMessages[getRandomNumber(0,(alienHitsMessages.length-1),0)]} Alien caused ${alien.firepower} damage. You have ${USSAssembly.hull} hulls remaining.\nType a to attack`,'a')
+                    }
+                }
+                else{ //player doesn't receive damage so it attacks and loop starts back up 
+                    prompt(`${playerHitsMessages[getRandomNumber(0,(playerHitsMessages.length-1),0)]} You caused ${USSAssembly.firepower} damage. Alien survives with ${alien.hull} hulls remaining. \nEnemy strikes back.\n${alienMissesMessages[getRandomNumber(0,(alienMissesMessages.length-1),0)]} \nType a to attack`,'a') 
+                }
+            }     
+        }
+        else{//alien does not receive damage so it will attack
+            attack(USSAssembly,alien)
+            if(USSAssembly.hit==true){ //player receives damage can either be destroyed or survive
+                if(USSAssembly.hull <= 0 ){//player  destroyed
+                    prompt(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} Alien still has ${alien.hull} hulls. \nEnemy strikes back.\n${playerDestroyed[getRandomNumber(0,(playerDestroyed.length-1),0)]}. \nAlien's ${alien.firepower} damage brought your hull number to ${USSAssembly.hull}. YOU LOSE.  `)
+                }
+                else{ //player survives so loops start back up 
+                    prompt(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} Alien still has ${alien.hull} hulls.\nEnemy strikes back.\n${alienHitsMessages[getRandomNumber(0,(alienHitsMessages.length-1),0)]} \nAlien caused ${alien.firepower} damage. You have ${USSAssembly.hull} hulls remaining.\nType a to attack`,'a')
+                }
+            }
+            else{//player doesn't receive damge so loops starts back up
+                prompt(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} Alien still has ${alien.hull} hulls.  \nEnemy strikes back. \n${alienMissesMessages[getRandomNumber(0,(alienMissesMessages.length-1),0)]} You still have ${USSAssembly.hull} hulls.\nType a to attack`,'a')
+            }
+        } 
+    }
+   
 }
 
+//when player clicks button the game starts
+const btn=document.querySelector('.start')
+btn.addEventListener('click',game)

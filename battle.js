@@ -76,7 +76,7 @@ let start=(e)=>{
     //set stats board
     setBoard(USSAssembly,alien)
 
-    confirm('Good day soldier. Today, you will go into space battle and attempt to defeat 6 alien ships. Be warned this is a matter of life and death. You may not come out of this alive. Good luck and may the universe have mercy on your soul.')
+    confirm('Good day soldier. Today, you will go into space battle and attempt to defeat '+alienFleet.length+' alien ships. Be warned this is a matter of life and death. You may not come out of this alive. Good luck and may the universe have mercy on your soul.')
    
     btn.disabled=true
     btnExt.innerHTML="Click the attack button to attack the alien!"

@@ -96,10 +96,10 @@ let start=(e)=>{
             
             //call attack method, player attacks
             attack(alien,USSAssembly) 
-            console.log('%c You are attacking an alien!', 'font-color: green;');
+            console.log('%c You are attacking an alien!', 'color: green;');
             //if alien receives damage: it either can be destroyed or can survive the damage 
             if(alien.hit==true){ 
-                console.log('%c You HIT the alien! ', 'font-color: red');
+                console.log('%c You HIT the alien! ', 'color: red');
                 console.log('%c You have done ' + USSAssembly.firepower + ' damage ', 'font-style: italic; border: 1px solid grey;');
                 console.log('%c Alien has ' +alien.hull+ " hull remaining.", 'font-style: italic');
              
@@ -139,8 +139,8 @@ let start=(e)=>{
                     attack(USSAssembly,alien) 
                    if(USSAssembly.hit==true){ //player receives damage so they can either be destroyed or survive the damage
                         if(USSAssembly.hull <= 0 ){//player destroyed and loses game so while loop ends
-                            console.log('%c Alien is attacking you! ', 'font-color: green');
-                            console.log('%c Alien HITS you! ', 'font-color: red');
+                            console.log('%c Alien is attacking you! ', 'color: green');
+                            console.log('%c Alien HITS you! ', 'color: red');
                             console.log('%c Alien did ' + alien.firepower + ' damage ', 'font-style: italic; border: 1px solid grey;');
                             console.log('%c Game over for you.', 'font-style: italic');
                         
@@ -159,8 +159,8 @@ let start=(e)=>{
                         else{ //player survives damage so loop will start back up
                             setBoard(USSAssembly,alien,alienFleet)
                             
-                            console.log('%c Alien is attacking you! ', 'font-color: green');
-                            console.log('%c Alien HITS you! ', 'font-color: red');
+                            console.log('%c Alien is attacking you! ', 'color: green');
+                            console.log('%c Alien HITS you! ', 'color: red');
                             console.log('%c Alien did ' + alien.firepower + ' damage ', 'font-style: italic; border: 1px solid grey;');
                             console.log('%c You have '+USSAssembly.hull+' hull remaining.', 'font-style: italic');
                         
@@ -176,8 +176,8 @@ let start=(e)=>{
                         }
                     }
                     else{ //player doesn't receive damage so it attacks and loop starts back up 
-                        console.log('%c Alien is attacking you! ', 'font-color: green');
-                        console.log('%c Alien MISSES you! ', 'font-color: orange');
+                        console.log('%c Alien is attacking you! ', 'color: green');
+                        console.log('%c Alien MISSES you! ', 'color: orange');
                         console.log('%c You have '+USSAssembly.hull+' hull remaining.', 'font-style: italic');
                     
                      
@@ -195,15 +195,15 @@ let start=(e)=>{
             }
             else{//alien does not receive damage so it will attack
                 attack(USSAssembly,alien)
-                console.log('%c You MISS the alien! ', 'font-color: orange');
+                console.log('%c You MISS the alien! ', 'color: orange');
                 console.log('%c Alien has ' +alien.hull+ " hull remaining.", 'font-style: italic');
                  
              
                 if(USSAssembly.hit==true){ //player receives damage can either be destroyed or survive
                     
                     if(USSAssembly.hull <= 0 ){//player  destroyed
-                        console.log('%c Alien is attacking you! ', 'font-color: green');
-                        console.log('%c Alien HITS you! ', 'font-color: red');
+                        console.log('%c Alien is attacking you! ', 'color: green');
+                        console.log('%c Alien HITS you! ', 'color: red');
                         console.log('%c Alien did ' + alien.firepower + ' damage ', 'font-style: italic; border: 1px solid grey;');
                         console.log('%c You are dead.', 'font-style: italic');
                         
@@ -220,8 +220,8 @@ let start=(e)=>{
                         btn.disabled=false
                     }
                     else{ //player survives so loops start back up 
-                        console.log('%c Alien is attacking you! ', 'font-color: green');
-                        console.log('%c Alien HITS you! ', 'font-color: red');
+                        console.log('%c Alien is attacking you! ', 'color: green');
+                        console.log('%c Alien HITS you! ', 'color: red');
                         console.log('%c Alien did ' + alien.firepower + ' damage ', 'font-style: italic; border: 1px solid grey;');
                         console.log('%c You have '+USSAssembly.hull+' hull remaining.', 'font-style: italic');
                         
@@ -239,8 +239,8 @@ let start=(e)=>{
                     }
                 }
                 else{//player doesn't receive damge so loops starts back up
-                    console.log('%c Alien is attacking you! ', 'font-color: green');
-                    console.log('%c Alien MISSES you! ', 'font-color: orange');
+                    console.log('%c Alien is attacking you! ', 'color: green');
+                    console.log('%c Alien MISSES you! ', 'color: orange');
                     console.log('%c You have '+USSAssembly.hull+' hull remaining.', 'font-style: italic');
                 
                     setBoard(USSAssembly,alien,alienFleet)

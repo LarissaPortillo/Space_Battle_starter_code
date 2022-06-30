@@ -103,15 +103,23 @@ let attack = (victim,attacker)=>{
 
 
 //set stats on page
-let setBoard=(player,alien)=>{
+let setBoard=(player,alien,array)=>{
     playerStats.innerHTML=`Hull: ${player.hull} <br> Firepower: ${player.firepower} <br> Accuracy: ${player.accuracy}`
-    alienStats.innerHTML=`Hull: ${alien.hull} <br> Firepower: ${alien.firepower} <br> Accuracy: ${alien.accuracy}`
+    alienStats.innerHTML=`Ships: ${array.length} <br>Hull: ${alien.hull} <br> Firepower: ${alien.firepower} <br> Accuracy: ${alien.accuracy}`
 }
 
-let setBoard2=(player,alien)=>{
+
+let setBoard2=(player,alien,array)=>{
     playerStats.innerHTML=`Hull: ${player.hull} <br> Firepower: ${player.firepower} <br> Accuracy: ${player.accuracy}`
-    alienStats.innerHTML=`Pod: ${alien.maxResistance} <br> Firepower: ${alien.firepower}  <br> Accuracy: ${alien.accuracy}`
+    alienStats.innerHTML=`Pods: ${array.length} <br>Life: ${alien.maxResistance} <br> Firepower: ${alien.firepower}  <br> Accuracy: ${alien.accuracy}`
 }
+
+let setBoard3=(player,alien)=>{
+    playerStats.innerHTML=`Hull: ${player.hull} <br> Firepower: ${player.firepower} <br> Accuracy: ${player.accuracy}`
+    alienStats.innerHTML=`Hull: ${alien.hull} <br> Firepower: ${alien.firepower} <br> Accuracy: ${alien.accuracy}`
+
+}
+
 
 
 attackMom.style.display='none'
@@ -128,7 +136,7 @@ let start=(e)=>{
     const USSAssembly = new Ship(20,5,.7)
     
     //Create array of random number of  alien ships
-    let fleetLength=getRandomNumber(6,10,0)
+    let fleetLength=getRandomNumber(6,8,0)
     let alienFleet=[]
     for(i=1;i<=fleetLength;i++){
         alienFleet.push(new alienShip(getRandomNumber(3,6,0),getRandomNumber(2,4,0),getRandomNumber(.6,.8,1),`alien${i}`))
@@ -147,7 +155,7 @@ let start=(e)=>{
     let motherShip = new megaShip(getRandomNumber(8,12,0),getRandomNumber(4,6,0),getRandomNumber(.6,.8,1),pods)
 
     //set stats board
-    setBoard(USSAssembly,alien)
+    setBoard(USSAssembly,alien,alienFleet)
 
     confirm('Good day soldier. Today, you will go into space battle and attempt to defeat '+alienFleet.length+' alien ships. Be warned this is a matter of life and death. You may not come out of this alive. Good luck and may the universe have mercy on your soul.')
    
@@ -164,7 +172,7 @@ let start=(e)=>{
         enemyHit.style.backgroundImage="url(images/enemy.gif)"
     
    
-        setBoard(USSAssembly,alien)
+        setBoard(USSAssembly,alien,alienFleet)
         let proceed=true;
         retreat.disabled=false
 
@@ -182,7 +190,7 @@ let start=(e)=>{
             if(alien.hit==true){ 
                 if(alien.hull <= 0 ){ //alien is destroyed
                     if(alienFleet.length-1==0){ //last alien in the array is destroyed so print message and decrement alienFleet array to end while loop
-                        setBoard(USSAssembly,alien)
+                        setBoard(USSAssembly,alien,alienFleet)
 
                         alert(`Entire enemy fleet destroyed. \nYour ${USSAssembly.firepower} damage brought the last enemy's hull to ${alien.hull}. `)
                         
@@ -205,7 +213,7 @@ let start=(e)=>{
                         
                         btnExt.textContent='Choose either to retreat or attack'
                         retreat.disabled=false
-                        setBoard(USSAssembly,alien)
+                        setBoard(USSAssembly,alien,alienFleet)
                         
                         alert(`${alienDestroyed[getRandomNumber(0,(alienDestroyed.length-1),0)]} \nYour ${USSAssembly.firepower} damage brought the alien's hull to ${alien.hull}.  \nThere are ${alienFleet.length-1} ships remaining. `)
                         enemyHit.style.animation='blink .5s 2'
@@ -229,7 +237,7 @@ let start=(e)=>{
                             playerHit.style.animation='blink .5s 2'
                             enemyHit.style.animation='win .5s 2'
                             playerHit.style.backgroundImage="url(https://images.squarespace-cdn.com/content/v1/544ff970e4b0c2f7a273e9b6/1558280595707-9VRDRGOVXX877H4TGYDN/Tomb-eyes-loop.gif)"
-                            setBoard(USSAssembly,alien)
+                            setBoard(USSAssembly,alien,alienFleet)
                             attackbtn.disabled=true;
                             retreat.disabled=true;
                             attackbtn.style.display='none'
@@ -237,7 +245,7 @@ let start=(e)=>{
                             btn.style.display='block'
                         }
                         else{ //player survives damage so loop will start back up
-                            setBoard(USSAssembly,alien)
+                            setBoard(USSAssembly,alien,alienFleet)
                             
                             
                             alert(`${playerHitsMessages[getRandomNumber(0,(playerHitsMessages.length-1),0)]} \nYou caused ${USSAssembly.firepower} damage. Alien survives with ${alien.hull} hulls remaining. `)
@@ -268,7 +276,7 @@ let start=(e)=>{
                     
                     if(USSAssembly.hull <= 0 ){//player  destroyed
                         
-                        setBoard(USSAssembly,alien)
+                        setBoard(USSAssembly,alien,alienFleet)
                         alert(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} \nAlien still has ${alien.hull} hulls.`)
                         alert(`Enemy strikes back.\n${playerDestroyed[getRandomNumber(0,(playerDestroyed.length-1),0)]}. \nAlien's ${alien.firepower} damage brought your hull number to ${USSAssembly.hull}.\nYOU LOSE.  `)
                         playerHit.style.animation='blink .5s 2'
@@ -281,7 +289,7 @@ let start=(e)=>{
                     }
                     else{ //player survives so loops start back up 
                         
-                        setBoard(USSAssembly,alien)
+                        setBoard(USSAssembly,alien,alienFleet)
                         alert(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} \nAlien still has ${alien.hull} hulls.`)
                         alert(`Enemy strikes back.\n${alienHitsMessages[getRandomNumber(0,(alienHitsMessages.length-1),0)]} \nAlien caused ${alien.firepower} damage. You have ${USSAssembly.hull} hulls remaining.`)
                         playerHit.style.animation='blink .5s 2'
@@ -294,7 +302,7 @@ let start=(e)=>{
                     }
                 }
                 else{//player doesn't receive damge so loops starts back up
-                    setBoard(USSAssembly,alien)
+                    setBoard(USSAssembly,alien,alienFleet)
                     alert(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} \nAlien still has ${alien.hull} hulls.`)
                     alert(`Enemy strikes back. \n${alienMissesMessages[getRandomNumber(0,(alienMissesMessages.length-1),0)]} \nYou still have ${USSAssembly.hull} hulls.`)
                     btnExt.innerHTML="Click the attack button to attack the alien!"
@@ -315,10 +323,10 @@ let start=(e)=>{
         let pod
         if(motherShip.pods.length!=0){
             pod=motherShip.pods[0]
-            setBoard2(USSAssembly,pod)
+            setBoard2(USSAssembly,pod,pods)
         }
         else{
-            setBoard(USSAssembly,motherShip)
+            setBoard3(USSAssembly,motherShip)
         }
         console.log(pod)
         console.log(motherShip)
@@ -339,7 +347,7 @@ let start=(e)=>{
             if(motherShip.pods.length==0){//all pods are destroyed so you can now attack the motherShip
                 if(motherShip.hit==true){//mothership was hit so it might be destroyed or might have survived
                      if(motherShip.hull <= 0){//mothership destroyed so player wins the game and loop ends
-                        setBoard(USSAssembly,motherShip)
+                        setBoard3(USSAssembly,motherShip)
                         attackMom.style.display='none'
                         retreat.style.display='none'
                         btn.style.display='block'
@@ -357,7 +365,7 @@ let start=(e)=>{
                         if(USSAssembly.hit==true){//mothership's attack is successful, so player could die or survive
                             
                             if(USSAssembly.hull<=0){//player dies
-                                setBoard(USSAssembly,motherShip)
+                                setBoard3(USSAssembly,motherShip)
                                 retreat.disabled=true
                                 attackMom.disabled=true
                                 retreat.style.display='none'
@@ -377,7 +385,7 @@ let start=(e)=>{
                                 proceed=false
                             }
                             else{//player survives
-                                setBoard(USSAssembly,motherShip)
+                                setBoard3(USSAssembly,motherShip)
                                 btnExt.textContent="Attack the Mothership!"
                                 retreat.disabled=true
                                 attackMom.disabled=false
@@ -392,7 +400,7 @@ let start=(e)=>{
                             
                         }
                         else{//mothership attack attempt failed, while loop ends
-                            setBoard(USSAssembly,motherShip)
+                            setBoard3(USSAssembly,motherShip)
                             retreat.disabled=true
                             attackMom.disabled=false
                             btnExt.textContent="Attack the Mothership!"
@@ -407,7 +415,7 @@ let start=(e)=>{
                     attack(USSAssembly,motherShip)
                     if(USSAssembly.hit==true){ //player is hit so can either be destroyed or survive
                         if(USSAssembly.hull<=0){//player dies
-                            setBoard(USSAssembly,motherShip)
+                            setBoard3(USSAssembly,motherShip)
                             attackMom.style.display='none'
                             retreat.style.display='none'
                             btn.style.display='block'
@@ -421,7 +429,7 @@ let start=(e)=>{
                             proceed=false
                         }
                         else{//player survives
-                            setBoard(USSAssembly,motherShip)
+                            setBoard3(USSAssembly,motherShip)
                             attackMom.disabled=false
                             retreat.disabled=true
                             alert(`Mothership was unaffected by your attack! \nMothership still has ${motherShip.hull} hulls.`)
@@ -432,7 +440,7 @@ let start=(e)=>{
 
                     }
                     else{//player is not hit so while loop ends
-                        setBoard(USSAssembly,motherShip)
+                        setBoard3(USSAssembly,motherShip)
                         retreat.disabled=true
                         attackMom.disabled=false
                         btnExt.textContent='Attack the Mothership!'
@@ -448,7 +456,7 @@ let start=(e)=>{
                 if(pod.hit==true){//pod was hit so it might be destroyed or might have survived
                     if(pod.maxResistance <= 0){//pod destroyed player have to check if all pods destroyed or not
                         if(motherShip.pods.length-1==0){//all pods destroyed
-                            setBoard2(USSAssembly,pod)
+                            setBoard2(USSAssembly,pod,pods)
                             attackMom.disabled=false
                             retreat.disabled=false
                             btnExt.textContent='Choose to attack the defenseless Mothership or retreat'
@@ -460,7 +468,7 @@ let start=(e)=>{
 
                         }
                         else{//pods remaining
-                            setBoard2(USSAssembly,pod)
+                            setBoard2(USSAssembly,pod,pods)
                             attackMom.disabled=false
                             retreat.disabled=false
                             btnExt.textContent='Choose to retreat or attack'
@@ -477,7 +485,7 @@ let start=(e)=>{
                        if(USSAssembly.hit==true){//pods attack is successful, so player could die or survive
                            
                            if(USSAssembly.hull<=0){//player dies 
-                               setBoard2(USSAssembly,pod)
+                               setBoard2(USSAssembly,pod,pods)
                                retreat.disabled=true
                                attackMom.disabled=true
                                retreat.style.display='none'
@@ -497,7 +505,7 @@ let start=(e)=>{
                                proceed=false
                            }
                            else{//player survives
-                               setBoard2(USSAssembly,pod)
+                               setBoard2(USSAssembly,pod,pods)
                                btnExt.textContent="Attack the weapon pod!"
                                retreat.disabled=true
                                attackMom.disabled=false
@@ -512,7 +520,7 @@ let start=(e)=>{
                            
                        }
                        else{//pod attack attempt failed, while loop ends
-                           setBoard2(USSAssembly,pod)
+                           setBoard2(USSAssembly,pod,pods)
                            retreat.disabled=true
                            attackMom.disabled=false
                            btnExt.textContent="Attack the weapon pod!"
@@ -527,7 +535,7 @@ let start=(e)=>{
                    attack(USSAssembly,pod)
                    if(USSAssembly.hit==true){ //player is hit so can either be destroyed or survive
                        if(USSAssembly.hull<=0){//player dies
-                           setBoard2(USSAssembly,pod)
+                           setBoard2(USSAssembly,pod,pods)
                            attackMom.style.display='none'
                            retreat.style.display='none'
                            btn.style.display='block'
@@ -540,7 +548,7 @@ let start=(e)=>{
                            proceed=false
                        }
                        else{//player survives
-                           setBoard2(USSAssembly,pod)
+                           setBoard2(USSAssembly,pod,pods)
                            attackMom.disabled=false
                            retreat.disabled=true
                            btnExt.textContent='Attack the Weapon pod!'
@@ -552,7 +560,7 @@ let start=(e)=>{
 
                    }
                    else{//player is not hit so while loop ends
-                       setBoard2(USSAssembly,pod)
+                       setBoard2(USSAssembly,pod,pods)
                        retreat.disabled=true
                        attackMom.disabled=false
                        btnExt.textContent='Attack the Weapon pod!'

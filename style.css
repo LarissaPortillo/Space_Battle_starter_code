@@ -48,6 +48,14 @@ align-items: center;
     font-size:.5em;
     width: 20vw;
 }
+input[type='radio'] {
+    transform: scale(.3);
+} 
+
+.alienSelection{
+    font-size:3px;
+    width: 20vw;
+}
 .start{
     font-family: 'Share Tech Mono', monospace;
     font-size:.5em;
@@ -67,7 +75,13 @@ align-items: center;
     width: 20vw;
 
 }
+.mom{
+    font-family: 'Share Tech Mono', monospace;
+    font-size:.5em;
+    height: 10vh;
+    width: 20vw;
 
+}
 
 
 .nameBox{

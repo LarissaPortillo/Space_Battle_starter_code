@@ -131,6 +131,7 @@ retreat.style.display='none'
 //start game
 let start=(e)=>{
     enemyHit.style.backgroundImage="url(images/enemy.gif)"
+    playerHit.style.backgroundImage="url(images/space_hero.gif)"
     
     //USS Assembly ship has prefixed numbers
     const USSAssembly = new Ship(20,5,.7)
@@ -170,6 +171,7 @@ let start=(e)=>{
     
     let pressAttack=(e)=>{
         enemyHit.style.backgroundImage="url(images/enemy.gif)"
+        playerHit.style.backgroundImage="url(images/space_hero.gif)"
     
    
         setBoard(USSAssembly,alien,alienFleet)

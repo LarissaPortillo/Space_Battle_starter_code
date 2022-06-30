@@ -50,8 +50,8 @@ align-items: center;
     font-size:1em;
     width: 20vw;
 }
-input[type='radio'] {
-    transform: scale(.3);
+input[type='checkbox'] {
+    transform: scale(2);
 } 
 
 .alienSelection{

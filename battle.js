@@ -113,7 +113,8 @@ let start=(e)=>{
                         
                         enemyHit.style.animation='blink .5s 2'
                         playerHit.style.animation='win .5s 2'
-
+                        enemyHit.style.backgroundImage=("url(https://th.bing.com/th/id/R.b40448e4f2f40a855d6e7628b6cd7664?rik=sDSkz9l%2fGhfrkQ&riu=http%3a%2f%2f25.media.tumblr.com%2ffeb6ead616cb7fb2733bcb2d8fb8523e%2ftumblr_n1fgwuLS3K1qedb29o1_500.gif&ehk=%2bglcwMkeYTFWWGA60M%2fpsrY%2fduHMMJn%2fkLqoIpjsVE4%3d&risl=&pid=ImgRaw&r=0")
+                     
                         btnExt.textContent='Winner!'    
                         retreat.disabled=true
                         attackbtn.disabled=true
@@ -131,7 +132,7 @@ let start=(e)=>{
                         console.log('Retreat or Attack')
                         alert(`${alienDestroyed[getRandomNumber(0,(alienDestroyed.length-1),0)]} \nYour ${USSAssembly.firepower} damage brought the alien's hull to ${alien.hull}.  \nThere are ${alienFleet.length-1} ships remaining. `)
                         enemyHit.style.animation='blink .5s 2'
-                        alienFleet.shift()  
+                         alienFleet.shift()  
                         alien=alienFleet[0]  
                         proceed=false;
         

@@ -55,7 +55,7 @@ let setBoard=(player,alien,array)=>{
     alienStats.innerHTML=`Ships: ${array.length} <br> Hull: ${alien.hull} <br> Firepower: ${alien.firepower} <br> Accuracy: ${alien.accuracy}`
 }
 
-
+console.log('%c spacebattle', 'font-size: 40px');
 //start game
 let start=(e)=>{
     enemyHit.style.backgroundImage="url(images/enemy.gif)"
@@ -96,13 +96,17 @@ let start=(e)=>{
             
             //call attack method, player attacks
             attack(alien,USSAssembly) 
-        
+            console.log('%c You are attacking an alien!', 'font-color: green;');
             //if alien receives damage: it either can be destroyed or can survive the damage 
             if(alien.hit==true){ 
+                console.log('%c You HIT the alien! ', 'font-color: red');
+                console.log('%c You have done ' + USSAssembly.firepower + ' damage ', 'font-style: italic; border: 1px solid grey;');
+                console.log('%c Alien has ' +alien.hull+ " hull remaining.", 'font-style: italic');
+             
                 if(alien.hull <= 0 ){ //alien is destroyed
                     if(alienFleet.length-1==0){ //last alien in the array is destroyed so print message and decrement alienFleet array to end while loop
                         setBoard(USSAssembly,alien,alienFleet)
-
+                        console.log('%c Fleet Destroyed.', 'font-style: italic');
                         alert(`Entire enemy fleet destroyed. \nYour ${USSAssembly.firepower} damage brought the last enemy's hull to ${alien.hull}. \nYOU WIN!`)
                         
                         enemyHit.style.animation='blink .5s 2'
@@ -119,8 +123,10 @@ let start=(e)=>{
                         
                         btnExt.textContent='Choose either to retreat or attack'
                         retreat.disabled=false
+                        btn.disabled=true
                         setBoard(USSAssembly,alien,alienFleet)
-                        
+                        console.log('%c Alien Destroyed.', 'font-style: italic');
+                        console.log('Retreat or Attack')
                         alert(`${alienDestroyed[getRandomNumber(0,(alienDestroyed.length-1),0)]} \nYour ${USSAssembly.firepower} damage brought the alien's hull to ${alien.hull}.  \nThere are ${alienFleet.length-1} ships remaining. `)
                         enemyHit.style.animation='blink .5s 2'
                         alienFleet.shift()  
@@ -131,9 +137,13 @@ let start=(e)=>{
                 }
                 else{ //alien ship survives despite damage so it'll attack
                     attack(USSAssembly,alien) 
-                    if(USSAssembly.hit==true){ //player receives damage so they can either be destroyed or survive the damage
+                   if(USSAssembly.hit==true){ //player receives damage so they can either be destroyed or survive the damage
                         if(USSAssembly.hull <= 0 ){//player destroyed and loses game so while loop ends
-                            
+                            console.log('%c Alien is attacking you! ', 'font-color: green');
+                            console.log('%c Alien HITS you! ', 'font-color: red');
+                            console.log('%c Alien did ' + alien.firepower + ' damage ', 'font-style: italic; border: 1px solid grey;');
+                            console.log('%c Game over for you.', 'font-style: italic');
+                        
                             attackbtn.ariaDisabled=true;
                             alert(`${playerHitsMessages[getRandomNumber(0,(playerHitsMessages.length-1),0)]} \nYou caused ${USSAssembly.firepower} damage. Alien survives with ${alien.hull} hulls remaining.`)
                             enemyHit.style.animation='blink .5s 2'
@@ -149,7 +159,11 @@ let start=(e)=>{
                         else{ //player survives damage so loop will start back up
                             setBoard(USSAssembly,alien,alienFleet)
                             
-                            
+                            console.log('%c Alien is attacking you! ', 'font-color: green');
+                            console.log('%c Alien HITS you! ', 'font-color: red');
+                            console.log('%c Alien did ' + alien.firepower + ' damage ', 'font-style: italic; border: 1px solid grey;');
+                            console.log('%c You have '+USSAssembly.hull+' hull remaining.', 'font-style: italic');
+                        
                             alert(`${playerHitsMessages[getRandomNumber(0,(playerHitsMessages.length-1),0)]} \nYou caused ${USSAssembly.firepower} damage. Alien survives with ${alien.hull} hulls remaining. `)
                             enemyHit.style.animation='blink .5s 2'
                             alert(`Enemy strikes back. \n${alienHitsMessages[getRandomNumber(0,(alienHitsMessages.length-1),0)]} \nAlien caused ${alien.firepower} damage. You have ${USSAssembly.hull} hulls remaining.`)
@@ -157,16 +171,23 @@ let start=(e)=>{
                             btnExt.innerHTML="Click the attack button to attack the alien!"
                             attackbtn.disabled=false;
                             retreat.disabled=true;
+                            btn.disabled=true
                             proceed=false;
                         }
                     }
                     else{ //player doesn't receive damage so it attacks and loop starts back up 
+                        console.log('%c Alien is attacking you! ', 'font-color: green');
+                        console.log('%c Alien MISSES you! ', 'font-color: orange');
+                        console.log('%c You have '+USSAssembly.hull+' hull remaining.', 'font-style: italic');
+                    
+                     
                         alert(`${playerHitsMessages[getRandomNumber(0,(playerHitsMessages.length-1),0)]} \nYou caused ${USSAssembly.firepower} damage. Alien survives with ${alien.hull} hulls remaining. `)
                         enemyHit.style.animation='blink .5s 2'
                         alert(`Enemy strikes back.\n${alienMissesMessages[getRandomNumber(0,(alienMissesMessages.length-1),0)]}  \nYou have ${USSAssembly.hull} hulls remaining.`) 
                         btnExt.innerHTML="Click the attack button to attack the alien!"
 
                         attackbtn.disabled=false;
+                        btn.disabled=true
                         retreat.disabled=true;
                         proceed=false;
                     }
@@ -174,9 +195,17 @@ let start=(e)=>{
             }
             else{//alien does not receive damage so it will attack
                 attack(USSAssembly,alien)
+                console.log('%c You MISS the alien! ', 'font-color: orange');
+                console.log('%c Alien has ' +alien.hull+ " hull remaining.", 'font-style: italic');
+                 
+             
                 if(USSAssembly.hit==true){ //player receives damage can either be destroyed or survive
                     
                     if(USSAssembly.hull <= 0 ){//player  destroyed
+                        console.log('%c Alien is attacking you! ', 'font-color: green');
+                        console.log('%c Alien HITS you! ', 'font-color: red');
+                        console.log('%c Alien did ' + alien.firepower + ' damage ', 'font-style: italic; border: 1px solid grey;');
+                        console.log('%c You are dead.', 'font-style: italic');
                         
                         setBoard(USSAssembly,alien,alienFleet)
                         alert(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} \nAlien still has ${alien.hull} hulls.`)
@@ -191,6 +220,10 @@ let start=(e)=>{
                         btn.disabled=false
                     }
                     else{ //player survives so loops start back up 
+                        console.log('%c Alien is attacking you! ', 'font-color: green');
+                        console.log('%c Alien HITS you! ', 'font-color: red');
+                        console.log('%c Alien did ' + alien.firepower + ' damage ', 'font-style: italic; border: 1px solid grey;');
+                        console.log('%c You have '+USSAssembly.hull+' hull remaining.', 'font-style: italic');
                         
                         setBoard(USSAssembly,alien,alienFleet)
                         alert(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} \nAlien still has ${alien.hull} hulls.`)
@@ -200,17 +233,23 @@ let start=(e)=>{
                         btnExt.innerHTML="Click the attack button to attack the alien!"
                         attackbtn.disabled=false;
                         retreat.disabled=true;
+                        btn.disabled=true
                         proceed=false;
 
                     }
                 }
                 else{//player doesn't receive damge so loops starts back up
+                    console.log('%c Alien is attacking you! ', 'font-color: green');
+                    console.log('%c Alien MISSES you! ', 'font-color: orange');
+                    console.log('%c You have '+USSAssembly.hull+' hull remaining.', 'font-style: italic');
+                
                     setBoard(USSAssembly,alien,alienFleet)
                     alert(`${playerMisssesMessages[getRandomNumber(0,(playerMisssesMessages.length-1),0)]} \nAlien still has ${alien.hull} hulls.`)
                     alert(`Enemy strikes back. \n${alienMissesMessages[getRandomNumber(0,(alienMissesMessages.length-1),0)]} \nYou still have ${USSAssembly.hull} hulls.`)
                     btnExt.innerHTML="Click the attack button to attack the alien!"
                     attackbtn.disabled=false;
                     retreat.disabled=true;
+                    btn.disabled=true
                     proceed=false;
                 }
             } 
@@ -222,6 +261,7 @@ let start=(e)=>{
         attackbtn.disabled=true;
         retreat.disabled=true;
         btn.disabled=false;
+        console.log('Retreated')
         
     })
 

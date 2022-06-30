@@ -45,24 +45,24 @@ align-items: center;
     align-items: center;
     /* flex-wrap: wrap; */
     text-align: center;
-    font-size:.5em;
+    font-size:1em;
     width: 20vw;
 }
 .start{
     font-family: 'Share Tech Mono', monospace;
-    font-size:.5em;
+    font-size:1em;
     height: 20vh;
     width: 20vw;
 }
 .retreat{
     font-family: 'Share Tech Mono', monospace;
-    font-size:.5em;
+    font-size:1em;
     height: 10vh;
     width: 20vw;
 }
 .attack{
     font-family: 'Share Tech Mono', monospace;
-    font-size:.5em;
+    font-size:1em;
     height: 10vh;
     width: 20vw;
 
@@ -78,12 +78,12 @@ align-items: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: .4em;
+    font-size: 1em;
     box-shadow: 0px 0px 20px 10px white;
 
 }
 .playerImage{
-    border: 1px solid black;
+    border: 3px solid black;
     width: 30vw;
     height: 40vh;
     background-image: url("images/space_hero.gif");
@@ -105,14 +105,14 @@ align-items: center;
     width: 25vw;
     height: 20vh;
     text-align: center;
-    font-size: .1em;
+    font-size: 1em;
     box-shadow: 0px 0px 20px 10px white;
     border-radius: 2%;
 
 
 }
 .enemyImage{
-    border: 1px solid black;
+    border: 3px solid black;
     width: 30vw;
     height: 40vh;
     background-image: url("images/enemy.gif");
@@ -135,7 +135,7 @@ align-items: center;
     height: 20vh;
     text-align: center;
     font-family: 'Share Tech Mono', monospace;
-    font-size: .1em;
+    font-size: 1em;
     box-shadow: 0px 0px 20px 10px white;
 }
 

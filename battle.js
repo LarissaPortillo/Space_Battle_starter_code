@@ -59,6 +59,7 @@ console.log('%c spacebattle', 'font-size: 40px');
 //start game
 let start=(e)=>{
     enemyHit.style.backgroundImage="url(images/enemy.gif)"
+    playerHit.style.backgroundImage="url(images/space_hero.gif)"
     
     //USS Assembly ship has prefixed numbers
     const USSAssembly = new Ship(20,5,.7)
@@ -82,6 +83,7 @@ let start=(e)=>{
     
     attackbtn.addEventListener('click',function(e){
         enemyHit.style.backgroundImage="url(images/enemy.gif)"
+        playerHit.style.backgroundImage="url(images/space_hero.gif)"
 
         setBoard(USSAssembly,alien,alienFleet)
         let proceed=true;

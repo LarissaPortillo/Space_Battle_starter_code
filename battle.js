@@ -119,8 +119,7 @@ attackbtn.style.display='none'
 retreat.style.display='none'
 
 
-    
-
+ 
 //start game
 let start=(e)=>{
     enemyHit.style.backgroundImage="url(images/enemy.gif)"
@@ -229,6 +228,7 @@ let start=(e)=>{
                             alert(`Enemy strikes back.\n${playerDestroyed[getRandomNumber(0,(playerDestroyed.length-1),0)]} \nYOU LOSE. `)
                             playerHit.style.animation='blink .5s 2'
                             enemyHit.style.animation='win .5s 2'
+                            playerHit.style.backgroundImage="url(https://images.squarespace-cdn.com/content/v1/544ff970e4b0c2f7a273e9b6/1558280595707-9VRDRGOVXX877H4TGYDN/Tomb-eyes-loop.gif)"
                             setBoard(USSAssembly,alien)
                             attackbtn.disabled=true;
                             retreat.disabled=true;
@@ -273,7 +273,8 @@ let start=(e)=>{
                         alert(`Enemy strikes back.\n${playerDestroyed[getRandomNumber(0,(playerDestroyed.length-1),0)]}. \nAlien's ${alien.firepower} damage brought your hull number to ${USSAssembly.hull}.\nYOU LOSE.  `)
                         playerHit.style.animation='blink .5s 2'
                         enemyHit.style.animation='win .5s 2'
-                        
+                        playerHit.style.backgroundImage="url(https://images.squarespace-cdn.com/content/v1/544ff970e4b0c2f7a273e9b6/1558280595707-9VRDRGOVXX877H4TGYDN/Tomb-eyes-loop.gif)"
+   
                         btnExt.textContent='Loser'
                         retreat.disabled=true;
                         attackbtn.disabled=true;
@@ -344,6 +345,7 @@ let start=(e)=>{
                         btn.style.display='block'
                         btnExt.textContent='Winner'
                         alert(`Congratulations! You destroyed the Mothership!\nYour ${USSAssembly.firepower} damage brought the mothership's hull down to ${motherShip.hull}. \nYOU WIN! `)
+                        enemyHit.style.backgroundImage="url(https://images.squarespace-cdn.com/content/v1/544ff970e4b0c2f7a273e9b6/1558280595707-9VRDRGOVXX877H4TGYDN/Tomb-eyes-loop.gif)"
                         enemyHit.style.animation='blink .5s 2'
                         playerHit.style.animation='win .5s 2'
                         
@@ -369,6 +371,8 @@ let start=(e)=>{
                                 playerHit.style.animation='blink .5s 2'
                                 enemyHit.style.animation='blink .5s 2'
                                 enemyHit.style.animation='win .5s 2'
+                                playerHit.style.backgroundImage="url(https://images.squarespace-cdn.com/content/v1/544ff970e4b0c2f7a273e9b6/1558280595707-9VRDRGOVXX877H4TGYDN/Tomb-eyes-loop.gif)"
+   
                                 
                                 proceed=false
                             }
@@ -412,6 +416,8 @@ let start=(e)=>{
                             alert(`Mothership retaliates. \nOh no your ship succumbed to all the damages! \nMothership's ${motherShip.firepower} damage brought your hull to ${USSAssembly.hull}.\n YOU LOSE.`)
                             enemyHit.style.animation='win .5s 2'
                             playerHit.style.animation='blink .5s 2'
+                            playerHit.style.backgroundImage="url(https://images.squarespace-cdn.com/content/v1/544ff970e4b0c2f7a273e9b6/1558280595707-9VRDRGOVXX877H4TGYDN/Tomb-eyes-loop.gif)"
+   
                             proceed=false
                         }
                         else{//player survives
@@ -485,6 +491,8 @@ let start=(e)=>{
                                playerHit.style.animation='blink .5s 2'
                                enemyHit.style.animation='blink .5s 2'
                                enemyHit.style.animation='win .5s 2'
+                               playerHit.style.backgroundImage="url(https://images.squarespace-cdn.com/content/v1/544ff970e4b0c2f7a273e9b6/1558280595707-9VRDRGOVXX877H4TGYDN/Tomb-eyes-loop.gif)"
+   
                                
                                proceed=false
                            }
@@ -527,6 +535,8 @@ let start=(e)=>{
                            alert('Weapon pod aims and fires. \nOh no! Your ship is destroyed!\n YOU LOSE.')
                            enemyHit.style.animation='win .5s 2'
                            playerHit.style.animation='blink .5s 2'
+                           playerHit.style.backgroundImage="url(https://images.squarespace-cdn.com/content/v1/544ff970e4b0c2f7a273e9b6/1558280595707-9VRDRGOVXX877H4TGYDN/Tomb-eyes-loop.gif)"
+   
                            proceed=false
                        }
                        else{//player survives
